@@ -16,8 +16,180 @@
   <!-- CSS Files -->
   <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
   <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
-  <script type="text/javascript" src="jsc/jscharting.js"></script>
-  <script type="text/javascript" src="jsc/modules/types.js"></script>
+  <style>
+    #chartdiv {
+      width: 100%;
+      height: 500px;
+    }
+  </style>
+      
+  <!-- Resources -->
+  <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+  <!-- Chart code -->
+  <script>
+  am4core.ready(function() {
+
+  // Themes begin
+  am4core.useTheme(am4themes_animated);
+  // Themes end   
+
+  // create chart
+  var chart = am4core.create("asu", am4charts.TreeMap);
+  chart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
+
+  chart.data = [{
+      name: "Properti",
+      children: [
+      {
+          name: "ADHI",
+          value: 4
+      },
+      {
+          name: "PTPP",
+          value: 4
+      },
+      {
+          name: "WIKA",
+          value: 6
+      },
+      {
+          name: "WSKT",
+          value: 10
+      }
+      ]
+  },
+  {
+      name: "Pertambangan",
+      children: [
+      {
+          name: "ANTM",
+          value: 48
+      },
+      {
+          name: "ELSA",
+          value: 2
+      },
+      {
+          name: "TINS",
+          value: 9
+      },
+      {
+          name: "PTBA",
+          value: 43
+      }
+      ]
+  },
+  {
+      name: "Infrastruktur",
+      children: [
+      {
+          name: "MTEL",
+          value: 58
+      },
+      {
+          name: "TLKM",
+          value: 392
+      },
+      {
+          name: "PGAS",
+          value: 37
+      },
+      {
+          name: "JSMR",
+          value: 24
+      }
+      ]
+  },
+  {
+      name: "Industri Kimia",
+      children: [
+      {
+          name: "SMGR",
+          value: 50
+      }
+      ]
+  },
+  {
+      name: "Perbankan",
+      children: [
+      {
+          name: "BMRI",
+          value: 469
+      },
+      {
+          name: "BJBR",
+          value: 14
+      },
+      {
+          name: "AGRO",
+          value: 10
+      },
+      {
+          name: "BBTN",
+          value: 19
+      },
+      {
+          name: "BRIS",
+          value: 69
+      },
+      {
+          name: "BBRI",
+          value: 722
+      },
+      {
+          name: "BBNI",
+          value: 165
+      }
+      ]
+  }];
+
+  chart.colors.step = 2;
+
+  // define data fields
+  chart.dataFields.value = "value";
+  chart.dataFields.name = "name";
+  chart.dataFields.children = "children";
+  chart.legend = new am4charts.Legend();
+  chart.layoutAlgorithm = chart.binaryTree;
+
+  chart.zoomable = true;
+  var bgColor = new am4core.InterfaceColorSet().getFor("background");
+
+  // level 0 series template
+  var level0SeriesTemplate = chart.seriesTemplates.create("0");
+  var level0ColumnTemplate = level0SeriesTemplate.columns.template;
+
+  level0ColumnTemplate.column.cornerRadius(10, 10, 10, 10);
+  level0ColumnTemplate.fillOpacity = 0;
+  level0ColumnTemplate.strokeWidth = 4;
+  level0ColumnTemplate.strokeOpacity = 0;
+
+  // level 1 series template
+  var level1SeriesTemplate = chart.seriesTemplates.create("1");
+  var level1ColumnTemplate = level1SeriesTemplate.columns.template;
+
+  level1SeriesTemplate.tooltip.animationDuration = 0;
+  level1SeriesTemplate.strokeOpacity = 1;
+
+  level1ColumnTemplate.column.cornerRadius(10, 10, 10, 10)
+  level1ColumnTemplate.fillOpacity = 1;
+  level1ColumnTemplate.strokeWidth = 4;
+  level1ColumnTemplate.stroke = bgColor;
+
+  var bullet1 = level1SeriesTemplate.bullets.push(new am4charts.LabelBullet());
+  bullet1.locationY = 0.5;
+  bullet1.locationX = 0.5;
+  bullet1.siz
+  bullet1.label.text = "{name}";
+  bullet1.label.fill = am4core.color("#ffffff");
+
+  chart.maxLevels = 2;
+
+  }); // end am4core.ready()
+  </script>
   <script type="text/javascript">
     window.onload = function () {
       var chart = new CanvasJS.Chart("chartContainer",
@@ -174,7 +346,7 @@
                   <h5 class="card-category">Tree Map Market Cap (IDR)</h5>
                   <h3 class="card-title"><i class="tim-icons icon-send text-successa "></i> 2155 Billion</h3>
                   <div class="rcorners2">
-                    <div id="asu" style="height: 400px; margin: 0px auto;"></div>
+                    <div id="asu" style="height: 500px; margin: 0px auto;"></div>
                   </div>
                 </div>
               </div>
@@ -501,69 +673,6 @@
           // Javascript method's body can be found in assets/js/demos.js
           demo.initDashboardPageCharts();
   
-        });
-      </script>
-      <script type="text/javascript">
-        var chart = JSC.chart('asu', {
-          debug: true,
-          type: 'treemap cushion',
-          title_label_text: 'Market Cap BUMN20',
-          legend_visible: true,
-          backgroundColor: "#9BD0F5", 
-          defaultSeries_shape: {                        
-            label: {
-              text: '%name',
-              color: '#f2f2f2',
-              style: { fontSize: 15, fontWeight: 'bold' },
-            },
-          },
-          series: [
-          {
-            name: 'Properti',
-            points: [
-              { name: 'ADHI', y: 4 },
-              { name: 'PTPP', y: 4 },
-              { name: 'WIKA', y: 6 },
-              { name: 'WSKT', y: 10 },
-            ],
-          },
-          {
-            name: 'Pertambangan',
-            points: [
-              { name: 'ANTM', y: 48 },
-              { name: 'ELSA', y: 2 },
-              { name: 'PTBA', y: 43 },
-              { name: 'TINS', y: 9 },
-            ],
-          },
-          {
-            name: 'Infrastruktur',
-            points: [
-              { name: 'MTEL', y: 58 },
-              { name: 'TLKM', y: 392 },
-              { name: 'PGAS', y: 37},
-              { name: 'JSMR', y: 24 },
-            ],
-          },
-          {
-            name: 'Industri Kimia',
-            points: [
-              { name: 'SMGR', y: 50 },
-            ],
-          },
-          {
-            name: 'Perbankan',
-            points: [
-              { name: 'BMRI', y: 469 },
-              { name: 'BJBR', y: 14 },
-              { name: 'AGRO', y: 10 },
-              { name: 'BBTN', y: 19 },
-              { name: 'BRIS', y: 69 },
-              { name: 'BBRI', y: 722 },
-              { name: 'BBNI', y: 165 },
-            ],
-            },
-          ],
         });
       </script>
     </body>
