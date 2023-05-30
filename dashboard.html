@@ -16,70 +16,8 @@
   <!-- CSS Files -->
   <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
   <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript">
-    google.charts.load('current', {'packages':['treemap']});
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
-      var data = google.visualization.arrayToDataTable([
-      ['Location', 'Parent', 'Market Cap', 'Market increase/decrease (color)'],
-      ['BUMN20',    null, 2155, 2155],
-      ['Properti',   'BUMN20', 24, 24],
-      ['Pertambangan',    'BUMN20', 102,102],
-      ['Perbankan',      'BUMN20', 1468, 1468],
-      ['Infrastruktur', 'BUMN20', 511, 511],
-      ['Industri Kimia',    'BUMN20', 50, 50],
-      ['ADHI',    'Properti', 4, 4],
-      ['ANTM',    'Pertambangan', 48, 48],
-      ['BBNI',    'Perbankan', 165, 165],
-      ['AGRO','Perbankan',10,10],
-      ['BBRI','Perbankan',722,722],
-      ['BRIS','Perbankan',69,69],
-      ['BBTN','Perbankan',19,19],
-      ['BJBR','Perbankan',14,14],
-      ['BMRI','Perbankan',469,469],
-      ['MTEL','Infrastruktur',58,58],
-      ['ELSA','Pertambangan',2,2],
-      ['JSMR','Infrastruktur',24,24],
-      ['PGAS','Infrastruktur',37,37],
-      ['PTBA','Pertambangan',43,43],
-      ['TINS','Pertambangan',9,9],
-      ['PTPP','Properti',4,4],
-      ['SMGR','Industri Kimia',50,50],
-      ['TLKM','Infrastruktur',392,392],
-      ['WIKA','Properti',6,6],
-      ['WSKT','Properti',10,10]
-    ]);
-
-      tree = new google.visualization.TreeMap(document.getElementById('chart_div'));
-
-      tree.draw(data, {
-        minColor: '#cacaca',
-        midColor: '#9b9b9b',
-        maxColor: '#5b5b5b',
-        headerHeight: 15,
-        fontColor: 'white',
-        showScale: true
-      });
-
-      var options = {
-          minColor: '#2d6058',
-          midColor: '#03ab90',
-          maxColor: '#00ffd6',
-          showScale: true,
-          generateTooltip: showFullTooltip
-        };
-      
-        tree.draw(data, options);
-      
-        function showFullTooltip(row, size, value) {
-          return '<div style="background:#fd9; padding:10px; border-style:solid">' +
-                  '<span style="font-family:Courier"><b>' + data.getValue(row, 0) +
-                  '</b>, ' + data.getValue(row, 1) + '<br>' +
-                  data.getColumnLabel(2)+": "+ data.getValue(row, 2)+"B"
-        };
-    }
-  </script>
+  <script type="text/javascript" src="jsc/jscharting.js"></script>
+  <script type="text/javascript" src="jsc/modules/types.js"></script>
   <script type="text/javascript">
     window.onload = function () {
       var chart = new CanvasJS.Chart("chartContainer",
@@ -186,18 +124,13 @@
                   </button>
                 </div>
                 <a class="navbar-brand" href="#pablo">Tugas Akhir Visdat</a>
-                </div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-bar navbar-kebab"></span>
-                    <span class="navbar-toggler-bar navbar-kebab"></span>
-                    <span class="navbar-toggler-bar navbar-kebab"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navigation">
-                    <ul class="navbar-nav ml-auto">
-                      <h4 class="card-title">Rekomendasi Investasi Aman dan Bercuan pada Indeks Saham BUMN20 Pasca Pandemi</h4>
-                    </ul>
-                </div>
-          </div>
+              </div>
+              <div class="collapse navbar-collapse" id="navigation">
+                  <ul class="navbar-nav ml-auto">
+                    <h4 class="card-title">Rekomendasi Investasi Aman dan Bercuan pada Indeks Saham BUMN20 Pasca Pandemi</h4>
+                  </ul>
+              </div>
+            </div>
         </nav>
         <!-- End Navbar -->
 
@@ -237,10 +170,12 @@
           <div class="row">
             <div class="col-lg-7">
               <div class="card card-chart">
-                <div class="card-header ">
+                <div class="card-header">
                   <h5 class="card-category">Tree Map Market Cap (IDR)</h5>
-                  <h3 class="card-title"><i class="tim-icons icon-send text-success "></i> 2155 Billion</h3>
-                  <div id="chart_div" style="width: 700px; height: 400px;"></div>
+                  <h3 class="card-title"><i class="tim-icons icon-send text-successa "></i> 2155 Billion</h3>
+                  <div class="rcorners2">
+                    <div id="asu" style="height: 400px; margin: 0px auto;"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -433,8 +368,7 @@
                 </div>
                 <div class="card-body">
                   <div id="chartContainer" style="height: 340px; width: 100%;"> </div>
-                </div>
-              </div>
+                </div>c
             </div>
           </div>
         </div>
@@ -567,6 +501,69 @@
           // Javascript method's body can be found in assets/js/demos.js
           demo.initDashboardPageCharts();
   
+        });
+      </script>
+      <script type="text/javascript">
+        var chart = JSC.chart('asu', {
+          debug: true,
+          type: 'treemap cushion',
+          title_label_text: 'Market Cap BUMN20',
+          legend_visible: true,
+          backgroundColor: "#9BD0F5", 
+          defaultSeries_shape: {                        
+            label: {
+              text: '%name',
+              color: '#f2f2f2',
+              style: { fontSize: 15, fontWeight: 'bold' },
+            },
+          },
+          series: [
+          {
+            name: 'Properti',
+            points: [
+              { name: 'ADHI', y: 4 },
+              { name: 'PTPP', y: 4 },
+              { name: 'WIKA', y: 6 },
+              { name: 'WSKT', y: 10 },
+            ],
+          },
+          {
+            name: 'Pertambangan',
+            points: [
+              { name: 'ANTM', y: 48 },
+              { name: 'ELSA', y: 2 },
+              { name: 'PTBA', y: 43 },
+              { name: 'TINS', y: 9 },
+            ],
+          },
+          {
+            name: 'Infrastruktur',
+            points: [
+              { name: 'MTEL', y: 58 },
+              { name: 'TLKM', y: 392 },
+              { name: 'PGAS', y: 37},
+              { name: 'JSMR', y: 24 },
+            ],
+          },
+          {
+            name: 'Industri Kimia',
+            points: [
+              { name: 'SMGR', y: 50 },
+            ],
+          },
+          {
+            name: 'Perbankan',
+            points: [
+              { name: 'BMRI', y: 469 },
+              { name: 'BJBR', y: 14 },
+              { name: 'AGRO', y: 10 },
+              { name: 'BBTN', y: 19 },
+              { name: 'BRIS', y: 69 },
+              { name: 'BBRI', y: 722 },
+              { name: 'BBNI', y: 165 },
+            ],
+            },
+          ],
         });
       </script>
     </body>
