@@ -1,0 +1,736 @@
+  ` <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    Tugas akhir :sob:
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <!-- Nucleo Icons -->
+  <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <style>
+    #chartdiv {
+      width: 100%;
+      height: 500px;
+    }
+  </style>
+      
+  <!-- Resources -->
+  <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+  <!-- Chart code -->
+  <script>
+  am4core.ready(function() {
+
+  // Themes begin
+  am4core.useTheme(am4themes_animated);
+  // Themes end   
+
+  // create chart
+  var chart = am4core.create("asu", am4charts.TreeMap);
+  chart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
+
+  chart.data = [{
+      name: "Properti",
+      children: [
+      {
+          name: "ADHI",
+          value: 4
+      },
+      {
+          name: "PTPP",
+          value: 4
+      },
+      {
+          name: "WIKA",
+          value: 6
+      },
+      {
+          name: "WSKT",
+          value: 10
+      }
+      ]
+  },
+  {
+      name: "Pertambangan",
+      children: [
+      {
+          name: "ANTM",
+          value: 48
+      },
+      {
+          name: "ELSA",
+          value: 2
+      },
+      {
+          name: "TINS",
+          value: 9
+      },
+      {
+          name: "PTBA",
+          value: 43
+      }
+      ]
+  },
+  {
+      name: "Infrastruktur",
+      children: [
+      {
+          name: "MTEL",
+          value: 58
+      },
+      {
+          name: "TLKM",
+          value: 392
+      },
+      {
+          name: "PGAS",
+          value: 37
+      },
+      {
+          name: "JSMR",
+          value: 24
+      }
+      ]
+  },
+  {
+      name: "Industri Kimia",
+      children: [
+      {
+          name: "SMGR",
+          value: 50
+      }
+      ]
+  },
+  {
+      name: "Perbankan",
+      children: [
+      {
+          name: "BMRI",
+          value: 469
+      },
+      {
+          name: "BJBR",
+          value: 14
+      },
+      {
+          name: "AGRO",
+          value: 10
+      },
+      {
+          name: "BBTN",
+          value: 19
+      },
+      {
+          name: "BRIS",
+          value: 69
+      },
+      {
+          name: "BBRI",
+          value: 722
+      },
+      {
+          name: "BBNI",
+          value: 165
+      }
+      ]
+  }];
+
+  chart.colors.step = 2;
+
+  // define data fields
+  chart.dataFields.value = "value";
+  chart.dataFields.name = "name";
+  chart.dataFields.children = "children";
+  chart.legend = new am4charts.Legend();
+  chart.layoutAlgorithm = chart.binaryTree;
+
+  chart.zoomable = true;
+  var bgColor = new am4core.InterfaceColorSet().getFor("background");
+
+  // level 0 series template
+  var level0SeriesTemplate = chart.seriesTemplates.create("0");
+  var level0ColumnTemplate = level0SeriesTemplate.columns.template;
+
+  level0ColumnTemplate.column.cornerRadius(10, 10, 10, 10);
+  level0ColumnTemplate.fillOpacity = 0;
+  level0ColumnTemplate.strokeWidth = 4;
+  level0ColumnTemplate.strokeOpacity = 0;
+
+  // level 1 series template
+  var level1SeriesTemplate = chart.seriesTemplates.create("1");
+  var level1ColumnTemplate = level1SeriesTemplate.columns.template;
+
+  level1SeriesTemplate.tooltip.animationDuration = 0;
+  level1SeriesTemplate.strokeOpacity = 1;
+
+  level1ColumnTemplate.column.cornerRadius(10, 10, 10, 10)
+  level1ColumnTemplate.fillOpacity = 1;
+  level1ColumnTemplate.strokeWidth = 4;
+  level1ColumnTemplate.stroke = bgColor;
+
+  var bullet1 = level1SeriesTemplate.bullets.push(new am4charts.LabelBullet());
+  bullet1.locationY = 0.5;
+  bullet1.locationX = 0.5;
+  bullet1.siz
+  bullet1.label.text = "{name}";
+  bullet1.label.fill = am4core.color("#ffffff");
+
+  chart.maxLevels = 2;
+
+  }); // end am4core.ready()
+  </script>
+  <script type="text/javascript">
+    window.onload = function () {
+      var chart = new CanvasJS.Chart("chartContainer",
+      {
+        backgroundColor: "transparent",
+        axisX: {
+          title:"Volume",
+          gridColor: "#253859",
+          tickColor: "#253859",
+          titleFontColor: "#fff",
+          labelFontColor: "#777777",
+          lineColor: "#253859",
+          maximum: 250
+        },
+        axisY: {
+          title:"Harga Closing",
+          gridColor: "#253859",
+          tickColor: "#253859",
+          labelFontColor: "#777777",
+          lineColor: "#253859",
+          titleFontColor: "#fff"
+        },
+      
+        legend:{
+          verticalAlign: "bottom",
+          color: "#c0c1c2",
+          horizontalAlign: "left"
+  
+        },
+
+        data: [
+        {
+          type: "bubble",
+          showInLegend: true,
+          legendMarkerType: "circle",
+   toolTipContent: "<strong>{name}</strong> <br/> Harga Closing: Rp{y}<br/> Volume: {x} juta<br/> Market Cap: Rp{z} milyar",
+       dataPoints: [
+     {x: 10.2935,y: 696.9583333,z: 4,name: "ADHI"},
+     {x: 43.5056,y: 2087.202667,z: 48,name: "ANM"},
+     {x: 48.4501,y: 8641.666667,z: 165,name: "BBNI"},
+     {x: 5.5055,y: 849.5833333,z: 10,name: "AGRO"},
+     {x: 221.6746,y: 4557.5,z: 722,name: "BBRI"},
+     {x: 32.2338,y: 1485.416667,z: 69,name: "BRIS"},
+     {x: 59.1856,y: 1589.166667,z: 19,name: "BBN"},
+     {x: 2.4245,y: 1392.916667,z: 14,name: "BJBR"},
+     {x: 140.0947,y: 8833.333333,z: 469,name: "BMRI"},
+     {x: 27.7033,y: 748.75,z: 58,name: "MTEL"},
+     {x: 17.5085,y: 310.6666667,z: 2,name: "ELSA"},
+     {x: 5.2341,y: 3485.833333,z: 24,name: "JSMR"},
+     {x: 47.0207,y: 1662.916667,z: 37,name: "PGAS"},
+     {x: 22.377,y: 3797.5,z: 43,name: "PTBA"},
+     {x: 11.6525,y: 915.4166667,z: 4,name: "PTPP"},
+     {x: 10.8541,y: 7010.416667,z: 50,name: "SMGR"},
+     {x: 5.0322,y: 1639.166667,z: 9,name: "TINS"},
+     {x: 102.5366,y: 4289.166667,z: 392,name: "TLKM"},
+     {x: 15.0582,y: 957.9166667,z: 6,name: "WIKA"},
+     {x: 18.55,y: 516.3333333,z: 10,name: "WSKT"}   
+       ]
+     }
+     ],
+   });
+  chart.render();
+  }
+  </script>
+<script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script> 
+</head>
+
+  <body class=" ">
+    <div class="wrapper ">
+        <!--Sidebar-->
+      <div class="sidebar">
+        <div class="sidebar-wrapper">
+          <div class="logo      ">
+            <a href="index.html" class="simple-text logo-mini">
+                ✓               
+            </a>
+            <a href="index.html" class="simple-text logo-normal">
+                Kelompok 3 p1                 
+            </a>
+          </div>        
+          <ul class="nav">
+            <li class="active ">
+              <a href="dashboard.html">
+                <i class="tim-icons icon-chart-pie-36"></i>
+                <p>Dashboard</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <canvas id="chartLinePurple"></canvas>
+      </div>
+      <!--end sidebar-->
+      
+      <div class="main-panel">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent   ">
+            <div class="container-fluid">
+              <div class="navbar-wrapper">
+                <div class="navbar-toggle d-inline">
+                  <button type="button" class="navbar-toggler">
+                    <span class="navbar-toggler-bar bar1"></span>
+                    <span class="navbar-toggler-bar bar2"></span>
+                    <span class="navbar-toggler-bar bar3"></span>
+                  </button>
+                </div>
+                <a class="navbar-brand" href="#pablo">Tugas Akhir Visdat</a>
+              </div>
+              <div class="collapse navbar-collapse" id="navigation">
+                  <ul class="navbar-nav ml-auto">
+                    <h4 class="card-title">Rekomendasi Investasi Aman dan Bercuan pada Indeks Saham BUMN20 Pasca Pandemi</h4>
+                  </ul>
+              </div>
+            </div>
+        </nav>
+        <!-- End Navbar -->
+
+        <!-- Content -->>
+        <div class="content">
+          <div class="row">
+            <div class="col-12">
+              <div class="card card-chart">
+                <!--Trend line-->
+                <div class="card-header ">
+                  <div class="row">
+                    <div class="col-sm-6 text-left">
+                      <h5 class="card-category">IDX: IDXBUMN20 (IDR)</h5>
+                      <h2 class="card-title">Histori Harga Indeks</h2>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+                        <label class="btn btn-sm btn-primary btn-simple active" id="0">
+                          <input type="radio" name="options" autocomplete="off" checked> 2022
+                        </label>
+                        <label class="btn btn-sm btn-primary btn-simple " id="1">
+                          <input type="radio" name="options" autocomplete="off"> 2021
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--End Trendline-->
+                <div class="card-body">
+                  <div class="chart-area">
+                    <canvas id="chartBig1"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-7">
+              <div class="card card-chart">
+                <div class="card-header">
+                  <h5 class="card-category">Tree Map Market Cap (IDR)</h5>
+                  <h3 class="card-title"><i class="tim-icons icon-send text-successa "></i> RP2155 milyar</h3>
+                  <div class="rcorners2">
+                    <div id="asu" style="height: 500px; margin: 0px auto;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <div class="card card-chart">
+                <div class="card-header ">
+                  <h5 class="card-category">Perubahan Kategori 2022->2023 (%)</h5>
+                </div>
+                <div class="card-body ">
+                  <div class="chart-area">
+                    <canvas id="CountryChart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-12">
+              <div class="card ">
+                <div class="card-header">
+                  <h4 class="card-title"> Rekomendasi Saham</h4>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table tablesorter " id="">
+                      <thead class=" text-primary">
+                        <th>
+                          Nama
+                        </th>
+                        <th>
+                          KODE
+                        </th>
+                        <th>
+                          Open 2022
+                        </th>
+                        <th class="text-center">
+                          Open 2023*
+                        </th>
+                        <th class="text-center">
+                          Perubahan
+                        </th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            PT Bank Mandiri (Persero) Tbk
+                          </td>
+                          <td>
+                            BMRI
+                          </td>
+                          <td>
+                            Rp8833
+                          </td>
+                          <td class="text-center">
+                            Rp11749
+                          </td>
+                          <td class="text-center">
+                            33.01%
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            PT Dayamitra Telekomunikasi Tbk
+                          </td>
+                          <td>
+                            MTEL
+                          </td>
+                          <td>
+                            Rp748.75
+                          </td>
+                          <td class="text-center">
+                            Rp937
+                          </td>
+                          <td class="text-center">
+                            25.14%
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            PT Bank Syariah Indonesia Tbk
+                          </td>
+                          <td>
+                            BRIS
+                          </td>
+                          <td>
+                            Rp1485.4
+                          </td>
+                          <td class="text-center">
+                            Rp1854
+                          </td>
+                          <td class="text-center">
+                            24.75%
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            PT Aneka Tambang Tbk
+                          </td>
+                          <td>
+                            ANTM
+                          </td>
+                          <td>
+                            Rp2087.2
+                          </td>
+                          <td class="text-center">
+                            Rp2589.9
+                          </td>
+                          <td class="text-center">
+                            24.09%
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            PT Bank Tabungan Negara (Persero) Tbk
+                          </td>
+                          <td>
+                            BBTN
+                          </td>
+                          <td>
+                            Rp1589.1
+                          </td>
+                          <td class="text-center">
+                            Rp1851
+                          </td>
+                          <td class="text-center">
+                            16.48%
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            PT Bank Negara Indonesia (Persero) Tbk
+                          </td>
+                          <td>
+                            BBNI
+                          </td>
+                          <td>
+                            Rp8641.6
+                          </td>
+                          <td class="text-center">
+                            Rp9796
+                          </td>
+                          <td class="text-center">
+                            13.36%
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            PT Bank Rakyat Indonesia (Persero) Tbk
+                          </td>
+                          <td>
+                            BRRI
+                          </td>
+                          <td>
+                            Rp4557.5
+                          </td>
+                          <td class="text-center">
+                            Rp5074.6
+                          </td>
+                          <td class="text-center">
+                            11.35%
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            PT Elnusa Tbk
+                          </td>
+                          <td>
+                            ELSA
+                          </td>
+                          <td>
+                            Rp310.6
+                          </td>
+                          <td class="text-center">
+                            Rp332.8
+                          </td>
+                          <td class="text-center">
+                            7.12%
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+              <div class="card ">
+                <div class="card-header">
+                  <h4 class="card-title"> Deskripsi Dari Setiap Perusahaan</h4>
+                </div>
+                <div class="card-body">
+                  <div id="chartContainer" style="height: 340px; width: 100%;"> </div>
+                </div>c
+            </div>
+          </div>
+        </div>
+        <footer class="footer">
+          <div class="container-fluid">
+            <nav>
+              <ul>
+                <li>
+                  <a>
+                    Sumber Data:
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.idx.co.id">
+                    IDX
+                  </a>
+                </li>
+                <li>
+                  <a href="https://snips.stockbit.com">
+                    Stockbit
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.tradingview.com">
+                    TradingView
+                  </a>
+                </li>
+                <li>
+                  <a href="https://Ajaib.co.id">
+                    Ajaib
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.idnfinancials.com/id/">
+                    idnfinancials
+                  </a>
+                </li>
+                <li>
+                  <a href="http://simplywall.st/">
+                    Simply Wall st
+                  </a>
+                </li>
+                <li>
+                  <a href="http://aipickup.com/">
+                    Ai Pickup
+                  </a>
+                </li>
+                <li>
+                  <a href="http://investing.com/">
+                    Investing
+                  </a>
+                </li>
+              </ul>
+            </nav>
+            <div class="copyright float-right">
+              <a href="https://www.youtube.com/watch?v=CxAPNWYyMd8&ab_channel=quagmiretoiletgaming">
+                Made by Kel 3 with love (please help)
+              </a>
+            </div>
+        </footer>
+      </div>
+
+      <!--   Core JS Files   -->
+      <script src="assets/js/core/jquery.min.js"></script>
+      <script src="assets/js/core/popper.min.js"></script>
+      <script src="assets/js/core/bootstrap.min.js"></script>
+      <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+      <!-- Chart JS -->
+      <script src="assets/js/plugins/chartjs.min.js"></script>
+      <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+      <script src="assets/js/black-dashboard.min.js?v=1.0.0" type="text/javascript"></script>
+      <!-- Black Dashboard DEMO methods, don't include it in your project! -->
+      <script src="assets/demo/demo.js"></script>
+      <script>
+        $(document).ready(function() {
+          $().ready(function() {
+            $sidebar = $('.sidebar');
+            $navbar = $('.navbar');
+  
+            $full_page = $('.full-page');
+  
+            $sidebar_responsive = $('body > .navbar-collapse');
+            sidebar_mini_active = true;
+            white_color = false;
+  
+            window_width = $(window).width();
+  
+            fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+  
+  
+  
+            $('.fixed-plugin a').click(function(event) {
+              // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+              if ($(this).hasClass('switch-trigger')) {
+                if (event.stopPropagation) {
+                  event.stopPropagation();
+                } else if (window.event) {
+                  window.event.cancelBubble = true;
+                }
+              }
+            });
+  
+            $('.fixed-plugin .background-color span').click(function() {
+              $(this).siblings().removeClass('active');
+              $(this).addClass('active');
+  
+              var new_color = $(this).data('color');
+  
+              if ($sidebar.length != 0) {
+                $sidebar.attr('data-color', new_color);
+              }
+  
+              if ($navbar.length != 0) {
+                $navbar.attr('data-color', new_color);
+              }
+  
+              if ($full_page.length != 0) {
+                $full_page.attr('filter-color', new_color);
+              }
+  
+              if ($sidebar_responsive.length != 0) {
+                $sidebar_responsive.attr('data-color', new_color);
+              }
+            });
+  
+            $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function() {
+              var $btn = $(this);
+  
+              if (sidebar_mini_active == true) {
+                $('body').removeClass('sidebar-mini');
+                sidebar_mini_active = false;
+                blackDashboard.showSidebarMessage('Sidebar mini deactivated...');
+              } else {
+                $('body').addClass('sidebar-mini');
+                sidebar_mini_active = true;
+                blackDashboard.showSidebarMessage('Sidebar mini activated...');
+              }
+  
+              // we simulate the window Resize so the charts will get updated in realtime.
+              var simulateWindowResize = setInterval(function() {
+                window.dispatchEvent(new Event('resize'));
+              }, 180);
+  
+              // we stop the simulation of Window Resize after the animations are completed
+              setTimeout(function() {
+                clearInterval(simulateWindowResize);
+              }, 1000);
+            });
+  
+            $('.switch-change-color input').on("switchChange.bootstrapSwitch", function() {
+              var $btn = $(this);
+  
+              if (white_color == true) {
+  
+                $('body').addClass('change-background');
+                setTimeout(function() {
+                  $('body').removeClass('change-background');
+                  $('body').removeClass('white-content');
+                }, 900);
+                white_color = false;
+              } else {
+  
+                $('body').addClass('change-background');
+                setTimeout(function() {
+                  $('body').removeClass('change-background');
+                  $('body').addClass('white-content');
+                }, 900);
+  
+                white_color = true;
+              }
+  
+  
+            });
+  
+            $('.light-badge').click(function() {
+              $('body').addClass('white-content');
+            });
+  
+            $('.dark-badge').click(function() {
+              $('body').removeClass('white-content');
+            });
+          });
+        });
+      </script>
+      <script>
+        $(document).ready(function() {
+          // Javascript method's body can be found in assets/js/demos.js
+          demo.initDashboardPageCharts();
+  
+        });
+      </script>
+    </body>
+</html>
