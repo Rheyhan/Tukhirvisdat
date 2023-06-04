@@ -4850,7 +4850,11 @@ table.tablesorter thead tr .headerSortDown {
 }
 
 .card-chart .chart-area {
-  height: 220px;
+  height: 500px;
+  width: 100%;
+}
+.card-chart .chart-area1 {
+  height: 300px;
   width: 100%;
 }
 
